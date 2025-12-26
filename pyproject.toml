@@ -9,6 +9,11 @@ readme = "README.md"
 python = "^3.14"
 senhaunica-socialite-python = {git = "https://github.com/ayrtonnotrya/senhaunica-socialite-python.git"}
 replicado-python = {git = "https://github.com/ayrtonnotrya/replicado-python.git"}
+django = "^5.2"
+django-environ = "^0.12.0"
+whitenoise = "^6.11.0"
+psycopg = {extras = ["binary"], version = "^3.3.2"}
+django-extensions = "^4.1"
 
 
 [build-system]
