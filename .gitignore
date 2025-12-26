@@ -38,6 +38,5 @@ staticfiles/
 *.swo
 
 # Project Specific
-.agent/
-# (Optional: allow .agent/rules if you want them shared)
+.agent/*
 !.agent/rules/
