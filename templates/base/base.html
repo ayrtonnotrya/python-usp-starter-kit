@@ -56,7 +56,16 @@
                     <span class="app-name">{% block app_name %}Python USP Starter Kit{% endblock %}</span>
                 </div>
                 <div class="auth-info">
-                    {% block header_actions %}{% endblock %}
+                    {% if user.is_authenticated %}
+                        <span class="user-name" style="color: var(--text-color); margin-right: 1rem; font-size: 0.875rem;">
+                            {{ user.first_name|default:user.username }}
+                        </span>
+                        <a href="{% url 'logout' %}">Sair</a>
+                    {% else %}
+                        {% block header_actions %}
+                            <a href="{% url 'login' %}">Entrar</a>
+                        {% endblock %}
+                    {% endif %}
                 </div>
             </div>
         </nav>

@@ -58,6 +58,9 @@ INSTALLED_APPS = [
     
     # Internal apps (from apps/ directory)
     'base.apps.BaseConfig',
+    
+    # USP Socialite
+    'senhaunica_socialite',
 ]
 
 MIDDLEWARE = [
@@ -99,6 +102,11 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3'),
 }
 
+AUTHENTICATION_BACKENDS = [
+    'senhaunica_socialite.backends.SenhaUnicaBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -117,6 +125,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# Redirects for Auth
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Internationalization
