@@ -1,23 +1,31 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python USP Starter Kit</title>
-    <style>
-        body { font-family: sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #f0f2f5; color: #1c1e21; }
-        .card { background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: #003f5c; }
-        p { color: #606770; }
-        .logo { font-size: 3rem; margin-bottom: 1rem; }
-    </style>
-</head>
-<body>
-    <div class="card">
-        <div class="logo">🐍🇧🇷</div>
-        <h1>Python USP Starter Kit</h1>
-        <p>A base oficial para desenvolvimento web e ciência de dados na USP.</p>
-        <p>Configuração inicial concluída com sucesso!</p>
+{% extends "base/base.html" %}
+
+{% block title %}Bem-vindo ao Python USP Starter Kit{% endblock %}
+
+{% block header_actions %}
+    <a href="#">Entrar</a>
+{% endblock %}
+
+{% block content %}
+    <div style="background: var(--card-bg); padding: 3rem; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center; transition: background-color 0.3s ease;">
+        <h1 style="color: var(--usp-blue-pri); font-size: 2.5rem; margin-bottom: 1rem;">Python USP Starter Kit</h1>
+        <p style="font-size: 1.25rem; color: var(--text-color); margin-bottom: 2rem;">
+            Uma base python para desenvolvimento web na USP.
+        </p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 0.5rem; text-align: left;">
+                <h3 style="color: var(--usp-blue-pri); margin-bottom: 0.5rem;">Autenticação</h3>
+                <p>Integração nativa com a Senha Única USP via Socialite.</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 0.5rem; text-align: left;">
+                <h3 style="color: var(--usp-blue-pri); margin-bottom: 0.5rem;">Dados USP</h3>
+                <p>Acesso simplificado aos sistemas corporativos via Replicado.</p>
+            </div>
+            <div style="padding: 1.5rem; border: 1px solid var(--border-color); border-radius: 0.5rem; text-align: left;">
+                <h3 style="color: var(--usp-blue-pri); margin-bottom: 0.5rem;">Docker Ready</h3>
+                <p>Ambiente conteinerizado para desenvolvimento e produção.</p>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+{% endblock %}

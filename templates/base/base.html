@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Python USP Starter Kit{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Base CSS -->
+    <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+    
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <header class="usp-header">
+        <!-- Tier 1: Logo Bar -->
+        <div class="container logo-bar">
+            <div class="usp-logos">
+                <a href="http://www.usp.br" target="_blank" title="Portal da USP">
+                    <img src="{% static 'base/images/usp/usp-logo.png' %}" 
+                         alt="Logotipo da Universidade de São Paulo" 
+                         class="usp-logo-img">
+                </a>
+                <a href="http://www.usp.br" target="_blank" title="Universidade de São Paulo">
+                    <img src="{% static 'base/images/usp/usp-logo-texto.png' %}" 
+                         alt="Universidade de São Paulo" 
+                         class="usp-logo-text">
+                </a>
+            </div>
+        </div>
+
+        <!-- Tier 2: Color Strips -->
+        <div class="faixas-container">
+            <div class="faixa faixa-amarela"></div>
+            <div class="faixa faixa-azul-sec"></div>
+            <div class="faixa faixa-azul-pri"></div>
+        </div>
+
+        <!-- Tier 3: Navigation Bar -->
+        <nav class="nav-bar">
+            <div class="container nav-container">
+                <div class="app-info">
+                    <a href="{% url 'index' %}" class="ime-logo-link">
+                        <img src="{% static 'base/images/ime/logo-horizontal-simplificada-padrao.png' %}" 
+                             alt="Logo IME-USP" 
+                             class="ime-logo dark-hidden">
+                        <img src="{% static 'base/images/ime/logo-horizontal-simplificada-branca.png' %}" 
+                             alt="Logo IME-USP" 
+                             class="ime-logo dark-block">
+                    </a>
+                    <span class="app-name">{% block app_name %}Python USP Starter Kit{% endblock %}</span>
+                </div>
+                <div class="auth-info">
+                    {% block header_actions %}{% endblock %}
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container content-main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="container footer-main">
+        <p>&copy; {% now "Y" %} - Universidade de São Paulo</p>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
