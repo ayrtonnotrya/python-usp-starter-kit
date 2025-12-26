@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - DJANGO_ENV=development
+      - DATABASE_URL=postgres://uspuser:usppass@db:5432/uspdb
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  db:
+    image: postgres:17-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=uspdb
+      - POSTGRES_USER=uspuser
+      - POSTGRES_PASSWORD=usppass
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U uspuser -d uspdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
