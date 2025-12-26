@@ -38,5 +38,6 @@ staticfiles/
 *.swo
 
 # Project Specific
+tmp/
 .agent/*
 !.agent/rules/

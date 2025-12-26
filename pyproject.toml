@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "python-usp-starter-kit"
+version = "0.1.0"
+description = "A base oficial para desenvolvimento web e ciência de dados na USP."
+authors = ["ayrtonnotrya <ayrtonnotrya@github.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.14"
+senhaunica-socialite-python = {git = "https://github.com/ayrtonnotrya/senhaunica-socialite-python.git"}
+replicado-python = {git = "https://github.com/ayrtonnotrya/replicado-python.git"}
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
