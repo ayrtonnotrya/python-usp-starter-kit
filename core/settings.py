@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 import sys
 from pathlib import Path
+
 import environ
 
 # Initialize environment variables
@@ -24,8 +25,10 @@ env = environ.Env(
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Read .env file
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+# Read .env file if present (optional: in Portainer values come from the Stack env vars)
+env_file = os.path.join(BASE_DIR, '.env')
+if os.path.exists(env_file):
+    environ.Env.read_env(env_file)
 
 # Add apps/ directory to sys.path
 sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
@@ -52,13 +55,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     # Third party apps
     'django_extensions',
-    
+
     # Internal apps (from apps/ directory)
+    'users.apps.UsersConfig',
     'base.apps.BaseConfig',
-    
+
     # USP Socialite
     'senhaunica_socialite',
 ]
@@ -87,6 +91,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.enable_local_login',
             ],
         },
     },
@@ -102,10 +107,18 @@ DATABASES = {
     'default': env.db('DATABASE_URL', default='sqlite:///db.sqlite3'),
 }
 
+AUTH_USER_MODEL = 'users.User'
+
+# Flag que controla o login local (usuário/senha). Se False, o backend de
+# autenticação local é removido e apenas a Senha Única USP é aceita.
+ENABLE_LOCAL_LOGIN = env('ENABLE_LOCAL_LOGIN', default=True)
+
 AUTHENTICATION_BACKENDS = [
     'senhaunica_socialite.backends.SenhaUnicaBackend',
-    'django.contrib.auth.backends.ModelBackend',
 ]
+
+if ENABLE_LOCAL_LOGIN:
+    AUTHENTICATION_BACKENDS.append('django.contrib.auth.backends.ModelBackend')
 
 
 # Password validation
@@ -157,3 +170,13 @@ if not DEBUG:
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Celery
+# https://docs.celeryq.dev/en/stable/django/first-steps-with-django.html
+CELERY_BROKER_URL = env('REDIS_URL', default='redis://redis:6379/0')
+CELERY_RESULT_BACKEND = env('REDIS_URL', default='redis://redis:6379/0')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE

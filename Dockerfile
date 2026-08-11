@@ -3,7 +3,7 @@ FROM python:3.14-slim-bookworm
 # Set environment variables
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
-    POETRY_VERSION=1.8.2 \
+    POETRY_VERSION=2.2.1 \
     POETRY_VIRTUALENVS_CREATE=false \
     PYTHONPATH="/app:/app/apps"
 
